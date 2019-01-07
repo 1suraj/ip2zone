@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pickle
 from flask import Flask,jsonify,request
-application = app = Flask(__name__)
+app = Flask(__name__)
 
 
 clf= pickle.load(open('clf.pkl','rb'))
