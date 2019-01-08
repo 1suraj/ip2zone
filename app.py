@@ -9,25 +9,27 @@ CORS(app)
 clf= pickle.load(open('clf.pkl','rb'))
 
 
+import re
+
 def makeip(ip):
     ip = re.sub('[^0-9.]', '', ip)
-    print(ip)
+    #print(ip)
     data = str(ip.strip()).split('.')
-    print(data)
+    #print(data)
     data = list(filter(None, data))
-    print(data)
-    if len(data)!=4:
-        cl=len(data)
-        tl=4-(cl)
-        #data.append('.0'*tl)
-        #ip=''.join(data)
-        
-        ip = ip+'.0'*tl
-        ip = ip.replace('..','.')
-        ip = ip.lstrip(".")
-        ip =".".join(ip.split(".")[:4])
-        
-        return ip
+    #print(data)
+    cl=len(data)
+    tl=4-(cl)
+    #data.append('.0'*tl)
+    #ip=''.join(data)
+    
+    ip = ip+'.0'*tl
+    print(ip)
+    ip = ip.replace('..','.')
+    ip = ip.lstrip(".")
+    ip =".".join(ip.split(".")[:4])
+    
+    return ip
 
 @app.route("/api",methods=['POST'])
 
