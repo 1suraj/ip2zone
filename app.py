@@ -2,11 +2,32 @@
 import pickle
 from flask import Flask,jsonify,request
 from flask_cors import CORS
+import re
 app = Flask(__name__)
 CORS(app)
 
 clf= pickle.load(open('clf.pkl','rb'))
 
+
+def makeip(ip):
+    ip = re.sub('[^0-9.]', '', ip)
+    print(ip)
+    data = str(ip.strip()).split('.')
+    print(data)
+    data = list(filter(None, data))
+    print(data)
+    if len(data)!=4:
+        cl=len(data)
+        tl=4-(cl)
+        #data.append('.0'*tl)
+        #ip=''.join(data)
+        
+        ip = ip+'.0'*tl
+        ip = ip.replace('..','.')
+        ip = ip.lstrip(".")
+        ip =".".join(ip.split(".")[:4])
+        
+        return ip
 
 @app.route("/api",methods=['POST'])
 
@@ -14,6 +35,7 @@ clf= pickle.load(open('clf.pkl','rb'))
 def index():
     data = request.get_json(force=True)
     ip = data['ip']
+    ip=makeip(ip)
     ip1= [ip.split('.')]
     y_pred1 = clf.predict(ip1)
     y_pred = clf.predict_proba(ip1)
