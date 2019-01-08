@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pickle
 from flask import Flask,jsonify,request
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 
 
@@ -8,7 +9,7 @@ clf= pickle.load(open('clf.pkl','rb'))
 
 
 @app.route("/api",methods=['POST'])
-
+cors = CORS(app)
 
 def index():
     data = request.get_json(force=True)
