@@ -9,7 +9,7 @@ clf= pickle.load(open('clf.pkl','rb'))
 
 
 @app.route("/api",methods=['POST'])
-cors = CORS(app)
+CORS(app)
 
 def index():
     data = request.get_json(force=True)
