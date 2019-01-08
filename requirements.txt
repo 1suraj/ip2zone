@@ -3,3 +3,4 @@ numpy==1.13.3
 scikit-learn>=0.18
 scipy>=0.15.1
 gunicorn==19.7.1
+flask-cors==3.0.3
